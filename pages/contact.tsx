@@ -4,8 +4,8 @@ import Layout from 'components/Layout'
 const Page: NextPage = () => {
   return (
     <Layout>
-      <h1>Welcome</h1>
-      <p>I&apos;m Tom.</p>
+      <h1>Let&apos;s chat!</h1>
+      <p>E-Mail: info@tomrichter.me</p>
     </Layout>
   )
 }

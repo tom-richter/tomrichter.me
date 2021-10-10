@@ -1,4 +1,7 @@
-import { Typography } from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
@@ -9,6 +12,7 @@ import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 import type { NextPage } from 'next'
 import { useState } from 'react'
 import Layout from 'components/Layout'
@@ -52,8 +56,8 @@ const Page: NextPage = () => {
       <Box>
         <h1>GPX Builder</h1>
         <p>
-          Der GPX-Builder wandelt eine Liste von Koordinaten in eine GPX-Datei
-          um. Bei Fragen zur Benutzung kannst du das{' '}
+          The GPX Builder converts a list of coordinates into a GPX file. If you
+          have questions about how to use it, you can watch the{' '}
           <a href="https://youtu.be/HRAC2_WK5r8" target="blank">
             <Typography
               component="span"
@@ -62,29 +66,29 @@ const Page: NextPage = () => {
                 color: 'blue',
               }}
             >
-              Erklärungsvideo
+              tutorial video (German only)
             </Typography>
           </a>{' '}
-          anschauen, oder mir eine E-Mail an schreiben.
+          or send me an email.
         </p>
-        <h2>Hinweise zur Eingabe:</h2>
+        <h2>Remarks on the coordinate input:</h2>
         <ul>
-          <li>Genau eine Koordinate pro Zeile</li>
+          <li>Exactly one coordinate per line</li>
           <li>
-            Koordinaten im Dezimalminuten-Format (z.B. N 50°12.345 E 12°34.567)
+            Coordinates in decimal minute format (e.g. N 50°12.345 E 12°34.567)
           </li>
-          <li>Nord-/Südkoordinate vor Ost-/Westkoordinate</li>
+          <li>North/south coordinate before east/west coordinate</li>
           <li>
-            Nur falls kein N, S, E oder W vor einer Koordinate steht, wird die
-            unten ausgewählte Standard-Orientierung angenommen
-          </li>
-          <li>
-            Grad, Minuten und Dezimalstellen der Minuten werden durch mindestens
-            ein Zeichen getrennt, welches keine Zahl ist
+            Only if there is no N, S, E or W in front of a coordinate, the
+            default orientation selected below is assumed
           </li>
           <li>
-            Alles, was nach der Koordinate in einer Zeile steht, wird als
-            Kommentar für den Wegpunkt gespeichert
+            Degrees, minutes and decimals of minutes are separated by at least
+            one character which is not a digit
+          </li>
+          <li>
+            Everything after the coordinate in a line is used as a comment for
+            the waypoint
           </li>
         </ul>
       </Box>
@@ -93,7 +97,7 @@ const Page: NextPage = () => {
           fullWidth
           label="Coordinates"
           variant="outlined"
-          placeholder="e.g. N 50°12.345 E 12°34.567 Hint: stone"
+          placeholder="N 50°12.345 E 12°34.567 Hint: under stone"
           value={gpxInput.coordinates}
           onChange={(e) =>
             setGpxInput({
@@ -105,8 +109,8 @@ const Page: NextPage = () => {
           rows={4}
         />
         <p>
-          Standard-Orientierung, falls kein N, S, E oder W
-          (Groß-/Kleinschreibung egal) vor einer Koordinate steht:
+          Default orientation if there is no N, S, E or W (case-insensitive) in
+          front of a coordinate:
         </p>
         <FormControl component="fieldset">
           <RadioGroup
@@ -170,6 +174,20 @@ const Page: NextPage = () => {
           Create GPX-File
         </Button>
       </Box>
+      <h2>FAQ</h2>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>
+            Why is the standard Geocaching App not available?
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            It is (still) not possible to import custom GPX files into the
+            Geocaching App.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
     </Layout>
   )
 }

@@ -44,6 +44,9 @@ const GeocachingMenu = () => {
         <MenuItem onClick={() => router.push('/geocaching/gpx-builder')}>
           GPX-Builder
         </MenuItem>
+        <MenuItem onClick={() => router.push('/geocaching/equation-solver')}>
+          Equation-Solver
+        </MenuItem>
       </Menu>
     </div>
   )

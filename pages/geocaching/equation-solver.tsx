@@ -69,7 +69,7 @@ const Page: NextPage = () => {
               }}
             />
           ))}
-        <p>Lösung: {evaluateEquation()}</p>
+        <p>Solution: {evaluateEquation()}</p>
       </Box>
     </Layout>
   )

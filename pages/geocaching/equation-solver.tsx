@@ -10,22 +10,31 @@ const Page: NextPage = () => {
   const [equation, setEquation] = useState<string>('')
   const [variables, setVariables] = useState<Map<string, string>>(new Map())
 
-  const evaluateEquation = () => {
-    try {
-      const scope: { [key: string]: number } = {}
-      variables.forEach((value, key) => {
-        if (/\d+/.test(value)) {
-          scope[key] = parseInt(value)
-        }
-      })
-      const res = evaluate(equation, scope)
-      if (typeof res === 'number') {
-        return res
+  const evaluateEquation = (): string[] => {
+    const scope: { [key: string]: number } = {}
+    variables.forEach((value, key) => {
+      if (/\d+/.test(value)) {
+        scope[key] = parseInt(value)
       }
-      return ''
-    } catch (e) {
-      return ''
+    })
+    const equationRow = equation.trim().split('\n')
+    const solutions: string[] = []
+    if (!equationRow.length) {
+      return []
     }
+    for (const row of equationRow) {
+      try {
+        const solution = evaluate(row, scope)
+        if (typeof solution === 'number') {
+          solutions.push(solution.toString())
+        } else {
+          solutions.push('?')
+        }
+      } catch (e) {
+        solutions.push('?')
+      }
+    }
+    return solutions
   }
 
   return (
@@ -37,7 +46,9 @@ const Page: NextPage = () => {
           label="Equation"
           value={equation}
           onChange={(e) => {
-            const newEquation = e.target.value.toUpperCase()
+            const newEquation = e.target.value
+              .toUpperCase()
+              .replace('\u2013', '-') // replace en dash
             setEquation(newEquation)
             const newVariables = getVariables(newEquation)
             const newVariablesMap = new Map()
@@ -69,7 +80,12 @@ const Page: NextPage = () => {
               }}
             />
           ))}
-        <p>Solution: {evaluateEquation()}</p>
+        <h2>Solution:</h2>
+        {evaluateEquation().map((res, index) => (
+          <p key={index}>
+            {equation.trim().split('\n')[index]} = <b>{res}</b>
+          </p>
+        ))}
       </Box>
     </Layout>
   )

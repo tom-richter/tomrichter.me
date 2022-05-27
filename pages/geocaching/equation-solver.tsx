@@ -17,11 +17,11 @@ const Page: NextPage = () => {
         scope[key] = parseInt(value)
       }
     })
-    const equationRow = equation.trim().split('\n')
-    const solutions: string[] = []
-    if (!equationRow.length) {
+    if (!equation.trim().length) {
       return []
     }
+    const equationRow = equation.trim().split('\n')
+    const solutions: string[] = []
     for (const row of equationRow) {
       try {
         const solution = evaluate(row, scope)
